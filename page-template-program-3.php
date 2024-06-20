@@ -153,22 +153,36 @@ $container_tag        = 'product' === get_post_type($post_id) ? 'div' : 'article
 
 									function CargarResultados(data) {
 										data.sessions.forEach(function(element) {
-											objetoTracks.tracks.forEach(function(elemento) {
-												if (elemento.idtrack == element.idtrack) {
-													colorTrack = elemento.color;
-												}
-											});
-
-											let contenido_speakers = "";
+                                            let contenido_speakers = "";
+                                            let contenido_titulo = "";
 											fetchData(APIDetail + element.idsession)
 												.then(detail => {
-													contenido_speakers = contenido_speakers + `<p class="session_item_speakers"><i class="bi bi-mic"></i>&nbsp;${detail.title}</p>`;
+													contenido_titulo = contenido_titulo + `<p class="session_item_speakers"><i class="bi bi-mic"></i>&nbsp;${detail.title}</p>`;
+                                                    contenido_speakers = detail;
 													console.log("*", contenido_speakers);
 													console.log(detail.title);
 												})
 												.catch(error => {
 													console.error(error);
 												});
+                                        });
+										data.sessions.forEach(function(element) {
+											objetoTracks.tracks.forEach(function(elemento) {
+												if (elemento.idtrack == element.idtrack) {
+													colorTrack = elemento.color;
+												}
+											});
+
+											// let contenido_speakers = "";
+											// fetchData(APIDetail + element.idsession)
+											// 	.then(detail => {
+											// 		contenido_speakers = contenido_speakers + `<p class="session_item_speakers"><i class="bi bi-mic"></i>&nbsp;${detail.title}</p>`;
+											// 		console.log("*", contenido_speakers);
+											// 		console.log(detail.title);
+											// 	})
+											// 	.catch(error => {
+											// 		console.error(error);
+											// 	});
 
 											let fecha = "";
 											let year = "";
@@ -199,8 +213,8 @@ $container_tag        = 'product' === get_post_type($post_id) ? 'div' : 'article
 											// 	.catch(error => {
 											// 		console.error(error);
 											// 	});
-											console.log(contenido_speakers);
-											contenido_item = contenido_item + contenido_speakers + `</div></a>`;
+											//console.log(contenido_speakers);
+											contenido_item = contenido_item + `</div></a>`;
 
 											if (element.date == "20240712") {
 												listUnoSessions.push({
